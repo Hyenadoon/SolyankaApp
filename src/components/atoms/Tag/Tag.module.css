@@ -1,0 +1,34 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 6px;
+  background-color: var(--colors-alpha-4);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(6.5px);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--colors-text-500);
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.label {
+  font-family: var(--font-text);
+  font-weight: var(--font-bold);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--colors-text-500);
+  white-space: nowrap;
+  text-align: center;
+}

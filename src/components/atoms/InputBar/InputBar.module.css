@@ -1,0 +1,23 @@
+.inputBar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 8px 8px 16px;
+  background-color: var(--colors-alpha-4);
+  border-radius: var(--radius-12);
+  width: 100%;
+}
+
+.input {
+  flex: 1;
+  font-family: var(--font-display);
+  font-weight: var(--font-medium);
+  font-size: var(--text-lg);
+  line-height: 0.85;
+  color: var(--colors-text-800);
+  min-width: 0;
+}
+
+.input::placeholder {
+  color: var(--colors-text-300);
+}

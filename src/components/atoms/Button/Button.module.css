@@ -1,0 +1,161 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-12);
+  border: none;
+  cursor: pointer;
+  backdrop-filter: blur(6.5px);
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.button:active:not(.disabled) {
+  transform: scale(0.97);
+}
+
+/* Sizes */
+.large {
+  height: 72px;
+  padding: var(--spacing-16) var(--spacing-20);
+}
+
+.medium {
+  height: 56px;
+  padding: var(--spacing-12) var(--spacing-16);
+}
+
+.small {
+  height: 44px;
+  padding: var(--spacing-8) var(--spacing-12);
+}
+
+/* Variants */
+.accent {
+  background-color: var(--colors-primary-500);
+}
+
+.primary {
+  background-color: var(--colors-text-800);
+}
+
+.secondary {
+  background-color: var(--colors-alpha-4);
+}
+
+/* Text colors per variant */
+.accent .text,
+.primary .text {
+  color: var(--colors-text-50);
+}
+
+.secondary .text {
+  color: var(--colors-text-800);
+}
+
+.accent .count {
+  color: var(--colors-primary-300);
+}
+
+.primary .count,
+.secondary .count {
+  color: var(--colors-text-300);
+}
+
+/* Rounds */
+.roundFull {
+  border-radius: var(--radius-full);
+}
+
+.round16 {
+  border-radius: var(--radius-16);
+}
+
+/* Disabled */
+.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Text */
+.text {
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  text-align: center;
+}
+
+.large .text {
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+}
+
+.medium .text {
+  font-size: var(--text-sm);
+  line-height: var(--leading-md);
+}
+
+.small .text {
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+}
+
+/* Count */
+.count {
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  text-align: center;
+}
+
+.large .count {
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+}
+
+.medium .count {
+  font-size: var(--text-sm);
+  line-height: var(--leading-md);
+}
+
+.small .count {
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+}
+
+/* Icon */
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.large .icon {
+  width: 32px;
+  height: 32px;
+}
+
+.medium .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.small .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Icon colors */
+.accent .icon,
+.primary .icon {
+  color: var(--colors-text-50);
+}
+
+.secondary .icon {
+  color: var(--colors-text-800);
+}

@@ -1,0 +1,1 @@
+export { ReceiptCard } from './ReceiptCard';

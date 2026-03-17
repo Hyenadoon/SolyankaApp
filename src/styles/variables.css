@@ -1,0 +1,66 @@
+:root {
+  /* ===== Colors ===== */
+
+  /* Primary */
+  --colors-primary-50: #fef9f4;
+  --colors-primary-300: #ffbd9c;
+  --colors-primary-500: #ff7300;
+
+  /* Text */
+  --colors-text-50: #ffffff;
+  --colors-text-300: #919395;
+  --colors-text-400: #626568;
+  --colors-text-500: #292d30;
+  --colors-text-700: #1c1f21;
+  --colors-text-800: #141618;
+
+  /* Background */
+  --colors-background-90: #fbf8f6;
+  --colors-background-100: #ffffff;
+
+  /* Alpha */
+  --colors-alpha-4: rgba(0, 0, 0, 0.04);
+  --colors-alpha-8: rgba(0, 0, 0, 0.08);
+  --colors-alpha-30: rgba(0, 0, 0, 0.3);
+
+  /* Misc */
+  --colors-misc-white: #ffffff;
+
+  /* ===== Spacing ===== */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+
+  /* ===== Radius ===== */
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-32: 32px;
+  --radius-full: 9999px;
+
+  /* ===== Typography ===== */
+  --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-text: 'Stack Sans Text', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Font Sizes */
+  --text-xs: 13px;
+  --text-sm: 16px;
+  --text-md: 20px;
+  --text-lg: 39px;
+
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-normal: 20px;
+  --leading-md: 24px;
+
+  /* Font Weights */
+  --font-medium: 500;
+  --font-bold: 700;
+}

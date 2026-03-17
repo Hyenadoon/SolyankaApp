@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Start Solyanka backend (PostgreSQL + Rails)
+set -e
+
+export PATH="$HOME/.postgresql-16/bin:$HOME/.ruby-3.3.7/bin:$PATH"
+export DYLD_LIBRARY_PATH="$HOME/.postgresql-16/lib:$HOME/.local-x86/lib"
+
+# Start PostgreSQL if not running
+if ! pg_isready -q 2>/dev/null; then
+  echo "Starting PostgreSQL..."
+  pg_ctl -D "$HOME/.postgresql-16/data" -l "$HOME/.postgresql-16/logfile" start
+  sleep 1
+fi
+
+cd "$(dirname "$0")/.."
+
+echo "Starting Rails on port 3000..."
+exec arch -x86_64 bin/rails server -p 3000 "$@"

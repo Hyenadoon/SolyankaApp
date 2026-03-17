@@ -1,0 +1,16 @@
+Что изменено:
+- Добавлен API-слой для auth, pantry, recipes, cooking, fridge recognition, ingredients search.
+- Добавлена простая AuthPage с login/register и хранением JWT в localStorage.
+- Замоканы страницы подключены к реальным эндпоинтам бека.
+- Добавлены route guards и sessionId в URL для cooking flow.
+- Добавлен .env.example с VITE_API_URL.
+
+Что проверить у себя:
+- Создай .env из .env.example при необходимости.
+- Если сборка упадет на rollup optional dependency, просто выполни npm install в папке фронта.
+- TypeScript проверка прошла через `npx tsc -b`.
+
+Чего пока нет:
+- Отдельного экрана редактирования pantry item.
+- Загрузки фото в fridge recognition, бек пока stub.
+- GET /recipes/:id на беке, поэтому detail page живет через router state.
