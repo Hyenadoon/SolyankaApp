@@ -1,0 +1,58 @@
+:root {
+  /* Colors - Primary */
+  --colors-primary-300: #ffbd9c;
+  --colors-primary-500: #ff7300;
+
+  /* Colors - Text */
+  --colors-text-50: #ffffff;
+  --colors-text-200: #b4b6b7;
+  --colors-text-300: #919395;
+  --colors-text-400: #44474a;
+  --colors-text-500: #292d30;
+  --colors-text-700: #1c1f21;
+  --colors-text-800: #141618;
+
+  /* Colors - Background */
+  --colors-background-100: #ffffff;
+
+  /* Colors - Alpha */
+  --colors-alpha-4: rgba(0, 0, 0, 0.04);
+  --colors-alpha-8: rgba(0, 0, 0, 0.08);
+  --colors-alpha-10: rgba(0, 0, 0, 0.1);
+  --colors-alpha-30: rgba(0, 0, 0, 0.3);
+
+  /* Colors - Error */
+  --colors-error-100: #ffe1de;
+  --colors-error-400: #ff8274;
+  --colors-error-600: #d64338;
+
+  /* Colors - Success */
+  --colors-success-100: #e0f3d8;
+  --colors-success-400: #83ce5b;
+  --colors-success-700: #3d8000;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+
+  /* Radius */
+  --radius-6: 6px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-32: 32px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-md: 0px 1px 6px 0px rgba(0, 0, 0, 0.1);
+
+  /* Font Families */
+  --font-display: 'Swis721 Win95BT', 'Arial Black', sans-serif;
+  --font-body: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-text: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}

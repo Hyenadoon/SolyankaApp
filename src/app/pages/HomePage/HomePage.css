@@ -1,0 +1,112 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100dvh - 96px);
+  text-align: center;
+}
+
+.home-page__hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-12);
+}
+
+.home-page__savings {
+  font-family: var(--font-display);
+  font-size: 100px;
+  line-height: 0.9;
+  color: var(--colors-text-700);
+}
+
+.home-page__actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-16) var(--spacing-16) var(--spacing-24);
+  background: linear-gradient(to bottom, transparent, white 30%);
+  z-index: 50;
+}
+
+.home-page__actions > .button {
+  width: calc(100% - 32px);
+  max-width: 360px;
+}
+
+.home-page__actions-mascot {
+  margin-right: 40px;
+  margin-bottom: -8px;
+}
+
+/* Desktop */
+.home-page__desktop-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-12);
+  text-align: center;
+}
+
+.home-page__savings--desktop {
+  font-size: 96px;
+  font-weight: 700;
+}
+
+.home-page__desktop-right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-32);
+  align-items: center;
+  height: 100%;
+  justify-content:center;
+}
+
+.home-page__desktop-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  width: 393px;
+  max-width: 100%;
+  padding: var(--spacing-16);
+}
+
+.home-page__desktop-preferences {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-32);
+  align-items: center;
+  width: 100%;
+}
+
+.home-page__pref-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  align-items: center;
+  width: 100%;
+}
+
+.home-page__pref-label {
+  font-family: var(--font-text);
+  font-size: 16px;
+  font-weight: 510;
+  color: var(--colors-text-400);
+  text-align: center;
+}
+
+.home-page__pref-pickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}

@@ -1,0 +1,110 @@
+@import '../../../tokens/tokens.css';
+
+.process-card {
+  background: var(--colors-background-100);
+  border-radius: var(--radius-20);
+  padding: var(--spacing-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  width: 345px;
+  box-sizing: border-box;
+}
+
+.process-card__header {
+  display: flex;
+  gap: var(--spacing-8);
+  align-items: center;
+  padding: var(--spacing-8);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.process-card__step {
+  flex: 1;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--colors-text-300);
+}
+
+.process-card__time-tag {
+  backdrop-filter: blur(6.5px);
+  background: var(--colors-alpha-4);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-4) var(--spacing-12);
+  display: flex;
+  gap: var(--spacing-4);
+  align-items: center;
+}
+
+.process-card__time-text {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--colors-text-500);
+}
+
+.process-card__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.process-card__ingredient {
+  border-bottom: 2px solid var(--colors-alpha-4);
+  display: flex;
+  gap: var(--spacing-16);
+  height: 78px;
+  align-items: center;
+  padding: 8px 8px 12px 8px;
+  box-sizing: border-box;
+}
+
+.process-card__ingredient:last-child {
+  border-bottom: none;
+}
+
+.process-card__ingredient-image {
+  width: 58px;
+  height: 100%;
+  border-radius: var(--radius-6);
+  object-fit: cover;
+}
+
+.process-card__ingredient-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.process-card__ingredient-name {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--colors-text-700);
+}
+
+.process-card__ingredient-weight {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--colors-alpha-30);
+}
+
+.process-card__instructions {
+  padding: var(--spacing-8);
+}
+
+.process-card__instructions-text {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--colors-text-800);
+}
