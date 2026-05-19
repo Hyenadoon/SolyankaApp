@@ -1,16 +1,18 @@
-const TOKEN_KEY = 'solyanka_access_token';
-const RECIPE_CACHE_KEY = 'solyanka_recipe_cache';
+const STORAGE_KEYS = {
+  token: 'solyanka_access_token',
+  recipeCache: 'solyanka_recipe_cache',
+};
 
 export function getToken() {
-  return localStorage.getItem(TOKEN_KEY) || '';
+  return localStorage.getItem(STORAGE_KEYS.token) || '';
 }
 
 export function setToken(token) {
-  localStorage.setItem(TOKEN_KEY, token);
+  localStorage.setItem(STORAGE_KEYS.token, token);
 }
 
 export function clearToken() {
-  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(STORAGE_KEYS.token);
 }
 
 export function isAuthenticated() {
@@ -21,7 +23,7 @@ export function cacheRecipe(recipe) {
   if (!recipe?.recipe_id) return;
   const all = getCachedRecipes();
   all[String(recipe.recipe_id)] = recipe;
-  localStorage.setItem(RECIPE_CACHE_KEY, JSON.stringify(all));
+  localStorage.setItem(STORAGE_KEYS.recipeCache, JSON.stringify(all));
 }
 
 export function getCachedRecipe(id) {
@@ -31,7 +33,7 @@ export function getCachedRecipe(id) {
 
 function getCachedRecipes() {
   try {
-    return JSON.parse(localStorage.getItem(RECIPE_CACHE_KEY) || '{}');
+    return JSON.parse(localStorage.getItem(STORAGE_KEYS.recipeCache) || '{}');
   } catch {
     return {};
   }

@@ -2,7 +2,7 @@ module Api
   module V1
     class RecipesController < ApplicationController
       def recommendations
-        max_missing = (params[:max_missing] || 3).to_i
+        max_missing = params.fetch(:max_missing, 3).to_i
         result = RecipeRecommender.new(current_user, max_missing: max_missing).call
 
         @no_buy = result[:no_buy]

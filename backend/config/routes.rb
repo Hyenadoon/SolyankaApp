@@ -7,6 +7,11 @@ Rails.application.routes.draw do
         get "me"
       end
 
+      scope :vk, controller: :vk do
+        post "launch"
+        get "config"
+      end
+
       resources :ingredients, only: [] do
         collection do
           get :search
