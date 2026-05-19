@@ -265,7 +265,7 @@ INGREDIENTS.each do |data|
     i.category = data[:category]
   end
   ingredient_map[data[:name]] = ing
-  (data[:synonyms] || []).each do |syn|
+  (data[:synonyms] || Array()).each do |syn|
     ing.ingredient_synonyms.find_or_create_by!(synonym: syn.downcase)
   end
 end

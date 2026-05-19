@@ -59,7 +59,7 @@ function RecipeListPage() {
           getPantryItems().catch(() => []),
         ]);
 
-        const merged = [...(data.no_buy || []), ...(data.need_buy || [])].map(toCard);
+        const merged = [...(data.no_buy || Array()), ...(data.need_buy || Array())].map(toCard);
         merged.forEach(cacheRecipe);
 
         if (!cancelled) {
@@ -160,7 +160,7 @@ function RecipeListPage() {
     ? getCatalogRecipeById(selectedRecipe.recipe_id)
     : null;
 
-  const fullIngredients = catalogRecipe?.ingredients || [];
+  const fullIngredients = catalogRecipe?.ingredients || Array();
 
   const pantryIds = new Set(
     pantryItems

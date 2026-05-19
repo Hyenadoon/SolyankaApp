@@ -16,7 +16,7 @@ function ScannedProductsPage() {
   const isDesktop = useMediaQuery(BREAKPOINTS.desktop);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [products, setProducts] = useState(location.state?.suggestedIngredients || []);
+  const [products, setProducts] = useState(location.state?.suggestedIngredients || Array());
 
   const normalizedProducts = useMemo(() => products.map((p, index) => ({
     id: p.ingredient_id || p.id || index + 1,

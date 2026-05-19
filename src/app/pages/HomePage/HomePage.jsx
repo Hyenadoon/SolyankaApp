@@ -80,7 +80,9 @@ function HomePage() {
     </div>
   );
 
-  if (!isDesktop) return mobileContent;
+  if (!isDesktop) {
+    return mobileContent;
+  }
 
   const leftPanel = (
     <div className="home-page__desktop-center">

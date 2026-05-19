@@ -22,7 +22,9 @@ const TIME_TABS = [
 ];
 
 function toCard(recipe) {
-  if (!recipe) return null;
+  if (!recipe) {
+    return null;
+  }
   return {
     ...recipe,
     id: recipe.recipe_id,

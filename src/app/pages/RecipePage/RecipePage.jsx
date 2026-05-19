@@ -36,9 +36,11 @@ function RecipePage() {
   }, []);
 
   const recipe = useMemo(() => {
-    if (!baseRecipe) return null;
+    if (!baseRecipe) {
+    return null;
+  }
 
-    if ((baseRecipe.missing_ingredients || []).length || !baseRecipe.ingredients?.length) {
+    if ((baseRecipe.missing_ingredients || Array()).length || !baseRecipe.ingredients?.length) {
       return baseRecipe;
     }
 
@@ -69,7 +71,7 @@ function RecipePage() {
 
   cacheRecipe(recipe);
 
-  const missingIngredients = recipe.missing_ingredients || [];
+  const missingIngredients = recipe.missing_ingredients || Array();
   const allPurchased = missingIngredients.every((item) => checkedItems[item.ingredient_id]);
   const canCook = !missingIngredients.length || allPurchased;
 

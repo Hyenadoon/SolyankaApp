@@ -44,7 +44,9 @@ function CookingPage() {
   }, [id, session]);
 
   const currentStep = useMemo(() => {
-    if (!session?.steps?.length) return 0;
+    if (!session?.steps?.length) {
+    return 0;
+  }
     const nextIndex = session.steps.findIndex((step) => !step.completed);
     return nextIndex === -1 ? session.steps.length - 1 : nextIndex;
   }, [session]);
@@ -109,7 +111,7 @@ function CookingPage() {
     }
   };
 
-  const steps = session?.steps || [];
+  const steps = session?.steps || Array();
   const finished = steps.length > 0 && steps.every((item) => item.completed);
   const chatMessage = finished ? 'Готово!' : CHAT_MESSAGES[Math.min(currentStep, CHAT_MESSAGES.length - 1)] || 'Готовим';
 
