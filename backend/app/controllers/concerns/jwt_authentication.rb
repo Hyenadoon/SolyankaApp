@@ -1,3 +1,5 @@
+# authentication concern for JWT-based auth in API controllers
+
 module JwtAuthentication
   extend ActiveSupport::Concern
 

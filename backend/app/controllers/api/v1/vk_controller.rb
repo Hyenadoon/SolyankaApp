@@ -1,3 +1,7 @@
+#vk controller handles authentication for VK Mini Apps. It verifies the launch parameters sent by VK, 
+#checks the signature, and either finds or creates a corresponding user in our system. It also provides a 
+#config endpoint that returns information about the VK integration capabilities of our app.
+
 require "securerandom"
 
 module Api

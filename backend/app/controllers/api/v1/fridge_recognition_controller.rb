@@ -1,3 +1,5 @@
+#placeholder
+
 module Api
   module V1
     class FridgeRecognitionController < ApplicationController
