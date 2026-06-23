@@ -1,0 +1,29 @@
+@import '../../../tokens/tokens.css';
+
+.picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: var(--spacing-12) var(--spacing-16);
+  gap: var(--spacing-4);
+  border-radius: 58px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.picker--selected {
+  background: var(--colors-primary-500);
+  color: var(--colors-text-50);
+}
+
+.picker--unselected {
+  background: var(--colors-alpha-4);
+  color: var(--colors-text-500);
+}

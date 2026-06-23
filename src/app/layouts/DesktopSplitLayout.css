@@ -1,0 +1,68 @@
+.desktop-split {
+  display: flex;
+  gap: 8px;
+  min-height: calc(100dvh - 16px);
+  padding: 8px;
+  background: #fbf8f6;
+}
+
+.desktop-split__left {
+  flex: 1;
+  background: var(--colors-background-100);
+  border-radius: var(--spacing-32);
+  padding: var(--spacing-20);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desktop-split__right {
+  position: relative;
+  width: 584px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--spacing-32);
+}
+
+/* видео как фон */
+.desktop-split__right .bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.desktop-split__right-scroll {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--spacing-20);
+}
+
+/* всё остальное поверх */
+.desktop-split__right > *:not(.bg-video) {
+  position: relative;
+  z-index: 1;
+}
+
+.desktop-split__right--orange {
+ /* background: linear-gradient(to top, #ffcb08 11%, #ff781c 89%); */
+  color: var(--colors-text-50);
+}
+
+.desktop-split--single {
+  justify-content: center;
+}
+
+.desktop-split--single .desktop-split__left {
+  max-width: 900px;
+}
+
+.desktop-split__right--no-video {
+  background: #ffffff;
+}

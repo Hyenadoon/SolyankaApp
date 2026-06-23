@@ -1,0 +1,127 @@
+.recipe-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  min-height: calc(100dvh - 96px);
+  padding-top: 140px; /* space for fixed header */
+  padding-bottom: 100px;
+}
+
+.recipe-list__fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  padding: 0 var(--spacing-16) var(--spacing-16);
+  background: linear-gradient(to bottom, white 70%, transparent);
+  z-index: 40;
+  padding-top: 120px;
+}
+
+.recipe-list__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-8);
+}
+
+.recipe-list__footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-16);
+  background: linear-gradient(to bottom, transparent, white 30%);
+  z-index: 50;
+}
+
+.recipe-list__footer-inner {
+  display: flex;
+  gap: var(--spacing-8);
+  align-items: center;
+  width: 100%;
+  max-width: 360px;
+}
+
+.recipe-list__footer-back {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: var(--colors-alpha-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Desktop */
+.recipe-list__desktop-left-content {
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  padding-top: 100px;
+}
+
+.recipe-list__desktop-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-16);
+  height: 100%;
+  padding: var(--spacing-20);
+}
+
+.recipe-list__desktop-hero-img {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-20);
+}
+
+.recipe-list__desktop-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 0.9;
+  color: var(--colors-text-50);
+  text-align: center;
+}
+
+.recipe-list__desktop-tags {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+.recipe-list__desktop-tags * {
+  background: white;
+}
+
+.recipe-list__desktop-section {
+  width: 100%;
+}
+
+.recipe-list__desktop-section-label {
+  font-size: 20px;
+  font-family: var(--font-body);
+  color: var(--colors-text-50);
+  opacity: 0.8;
+  margin-bottom: var(--spacing-8);
+}
+
+.recipe-list__desktop-ingredients {
+  flex-direction: column;
+}
+
+
+.recipe-list__desktop-ingredients--chips {
+  flex-wrap: wrap;
+  gap: 0;
+}

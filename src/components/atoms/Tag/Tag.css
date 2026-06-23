@@ -1,0 +1,88 @@
+@import '../../../tokens/tokens.css';
+
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4) var(--spacing-12);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(6.5px);
+  -webkit-backdrop-filter: blur(6.5px);
+}
+
+.tag__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.tag__text {
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.tag__count {
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+/* Negative variant */
+.tag--negative {
+  background: var(--colors-error-100);
+}
+
+.tag--negative .tag__text {
+  color: var(--colors-error-600);
+}
+
+.tag--negative .tag__icon {
+  color: var(--colors-error-600);
+}
+
+.tag--negative .tag__count {
+  color: var(--colors-error-400);
+}
+
+/* Positive variant */
+.tag--positive {
+  background: var(--colors-success-100);
+}
+
+.tag--positive .tag__text {
+  color: var(--colors-success-700);
+}
+
+.tag--positive .tag__icon {
+  color: var(--colors-success-700);
+}
+
+.tag--positive .tag__count {
+  color: var(--colors-success-400);
+}
+
+/* Neutral variant */
+.tag--neutral {
+  background: var(--colors-alpha-4);
+}
+
+.tag--neutral .tag__text {
+  color: var(--colors-text-500);
+}
+
+.tag--neutral .tag__icon {
+  color: var(--colors-text-500);
+}
+
+.tag--neutral .tag__count {
+  color: var(--colors-text-400);
+}

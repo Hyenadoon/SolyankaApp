@@ -1,0 +1,6 @@
+@import '../../../tokens/tokens.css';
+
+.mascot {
+  display: block;
+  flex-shrink: 0;
+}

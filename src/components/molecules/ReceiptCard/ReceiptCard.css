@@ -1,0 +1,138 @@
+@import '../../../tokens/tokens.css';
+
+.receipt-card {
+  backdrop-filter: blur(6px);
+  background: var(--colors-alpha-4);
+  border-radius: var(--radius-32);
+  padding: var(--spacing-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  box-sizing: border-box;
+  height: fit-content;
+}
+
+/* Big variant */
+.receipt-card--big {
+  min-width: 271px;
+}
+
+.receipt-card--big .receipt-card__image {
+  height: 300px;
+  width: 100%;
+  border-radius: var(--radius-20);
+  object-fit: cover;
+}
+
+.receipt-card--big .receipt-card__cook-button-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--colors-text-50);
+}
+
+.receipt-card--big .receipt-card__cook-button {
+  height: 48px;
+  border-radius: var(--radius-20);
+  padding: var(--spacing-12) var(--spacing-20);
+}
+
+/* Small variant */
+.receipt-card--small {
+  min-width: 0;
+  width: 100%;
+}
+
+.receipt-card--small .receipt-card__image {
+  height: 300px;
+  width: 100%;
+  border-radius: var(--radius-20);
+  object-fit: cover;
+}
+
+.receipt-card--small .receipt-card__cook-button-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--colors-text-50);
+}
+
+.receipt-card--small .receipt-card__cook-button {
+  height: 40px;
+  border-radius: var(--radius-20);
+  padding: var(--spacing-12) var(--spacing-20);
+}
+
+.receipt-card__tags {
+  display: flex;
+  gap: var(--spacing-4);
+  height: 28px;
+}
+
+.receipt-card__tag {
+  backdrop-filter: blur(6.5px);
+  background: var(--colors-alpha-4);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-4) var(--spacing-12);
+  display: flex;
+  gap: var(--spacing-4);
+  align-items: center;
+}
+
+.receipt-card__tag-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.receipt-card__tag-text {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--colors-text-500);
+}
+
+.receipt-card__title {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--colors-text-700);
+  height: 40px;
+  display: -webkit-box;
+  /* -webkit-line-clamp: 2; */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+}
+
+.receipt-card__buttons {
+  display: flex;
+  gap: var(--spacing-4);
+  width: 100%;
+}
+
+.receipt-card__cook-button {
+  flex: 1;
+  background: var(--colors-primary-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.receipt-card__favorite-button {
+  width: 48px;
+  height: 48px;
+  background: var(--colors-alpha-4);
+  border-radius: var(--radius-20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}

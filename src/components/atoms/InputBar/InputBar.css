@@ -1,0 +1,39 @@
+@import '../../../tokens/tokens.css';
+
+.input-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  background: var(--colors-alpha-4);
+  border-radius: 40px;
+  height: 54px;
+  width: 100%;
+  padding: var(--spacing-8) var(--spacing-8) var(--spacing-8) var(--spacing-16);
+  box-sizing: border-box;
+}
+
+.input-bar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--colors-text-200);
+}
+
+.input-bar__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--colors-text-500);
+  padding: 0;
+  min-width: 0;
+}
+
+.input-bar__input::placeholder {
+  color: var(--colors-text-200);
+}
