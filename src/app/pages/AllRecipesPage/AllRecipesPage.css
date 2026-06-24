@@ -31,6 +31,20 @@
   gap: var(--spacing-8);
 }
 
+@media (max-width: 610px) {
+  .all-recipes__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .all-recipes__grid .receipt-card {
+    width: 100%;
+  }
+
+  .all-recipes__grid .receipt-card--small .receipt-card__image {
+    height: clamp(200px, 58vw, 320px);
+  }
+}
+
 /* Desktop */
 .all-recipes__desktop-left {
   width: 700px;

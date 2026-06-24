@@ -72,15 +72,32 @@
   text-align: center;
 }
 
-.scan-page__desktop-right {
+.desktop-split__right--scan .desktop-split__right-scroll {
   display: flex;
   flex-direction: column;
+}
+
+.scan-page__desktop-right {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   gap: var(--spacing-16);
-  height: 100%;
+  min-height: 100%;
 }
 
 .scan-page__desktop-right .scan-page__preview {
-  flex: 1;
+  flex: 1 1 420px;
+  min-height: clamp(320px, calc(100dvh - 260px), 640px);
+}
+
+.scan-page__desktop-right .scan-page__controls,
+.scan-page__desktop-right .button,
+.scan-page__desktop-right .scan-page__error {
+  flex-shrink: 0;
+}
+
+.scan-page__desktop-right .button {
+  width: 100%;
 }
 
 .scan-page__error {

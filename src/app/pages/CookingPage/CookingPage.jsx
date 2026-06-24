@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ChatChip from '../../../components/atoms/ChatChip/ChatChip';
+import Button from '../../../components/atoms/Button/Button';
 import Tag from '../../../components/atoms/Tag/Tag';
 import DesktopSplitLayout from '../../layouts/DesktopSplitLayout';
 import { useMediaQuery, BREAKPOINTS } from '../../hooks/useMediaQuery';
@@ -11,6 +12,7 @@ import './CookingPage.css';
 
 function CookingPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { id } = useParams();
   const isDesktop = useMediaQuery(BREAKPOINTS.desktop);
   const [session, setSession] = useState(location.state?.session || null);
@@ -42,6 +44,26 @@ function CookingPage() {
   const steps = session?.steps || Array();
   const chatMessage = loading ? 'Разворачиваю рецепт...' : `${steps.length || 0} шагов, просто листайте вниз`;
 
+  const finishCooking = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+
+    navigate('/recipes/all', { replace: true });
+  };
+
+  const exitButton = (className = '') => (
+    <Button
+      size="large"
+      variant="primary"
+      onClick={finishCooking}
+      className={className}
+    >
+      Закончить готовку
+    </Button>
+  );
+
   const stepsList = (
     <div className="cooking-page__steps">
       {loading ? <p>Разворачиваю рецепт...</p> : null}
@@ -64,6 +86,9 @@ function CookingPage() {
       <div className="cooking-page">
         <ChatChip className="cooking-page__chat-chip">{chatMessage}</ChatChip>
         {stepsList}
+        <div className="cooking-page__exit-footer">
+          {exitButton()}
+        </div>
       </div>
     );
   }
@@ -80,6 +105,7 @@ function CookingPage() {
         <Tag icon={<IconClock size={16} />}>{recipe ? formatMinutes(recipe.cooking_time_minutes) : `${steps.length} шагов`}</Tag>
         <Tag icon={null}>Листайте шаги</Tag>
       </div>
+      {exitButton('cooking-page__desktop-exit')}
     </div>
   );
 

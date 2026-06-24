@@ -6,7 +6,7 @@
   background: linear-gradient(to top, #ffcb08 11%, #ff781c 89%);
   margin: 0 calc(-1 * var(--spacing-16));
   padding: var(--spacing-16);
-  padding-bottom: calc(var(--spacing-24) + var(--vk-safe-area-bottom));
+  padding-bottom: calc(96px + var(--vk-safe-area-bottom));
   border-radius: var(--radius-20);
 }
 
@@ -84,6 +84,24 @@
   color: var(--colors-alpha-30);
 }
 
+.cooking-page__exit-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 60;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: var(--spacing-16);
+  padding-bottom: calc(var(--spacing-16) + var(--vk-safe-area-bottom));
+  background: linear-gradient(to bottom, transparent, rgba(255, 203, 8, 0.92) 42%);
+}
+
+.cooking-page__exit-footer .button {
+  width: 100%;
+  max-width: 360px;
+}
+
 .cooking-page__footer,
 .cooking-page__footer-inner,
 .cooking-page__nav-btn {
@@ -124,6 +142,11 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--spacing-4);
+}
+
+.cooking-page__desktop-exit {
+  width: min(100%, 360px);
+  margin-top: var(--spacing-8);
 }
 
 .cooking-page__desktop-right {

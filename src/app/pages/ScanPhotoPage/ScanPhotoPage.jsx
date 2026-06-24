@@ -141,7 +141,14 @@ function ScanPhotoPage() {
     </div>
   );
 
-  return <DesktopSplitLayout leftContent={leftPanel} rightContent={rightPanel} showVideo={false} />;
+  return (
+    <DesktopSplitLayout
+      leftContent={leftPanel}
+      rightContent={rightPanel}
+      rightClassName="desktop-split__right--scan"
+      showVideo={false}
+    />
+  );
 }
 
 export default ScanPhotoPage;

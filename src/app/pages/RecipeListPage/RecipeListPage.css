@@ -157,6 +157,30 @@
   padding: var(--spacing-24) 0;
 }
 
+@media (max-width: 610px) {
+  .recipe-list__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-list__grid .receipt-card {
+    width: 100%;
+  }
+
+  .recipe-list__grid .receipt-card--small {
+    padding: var(--spacing-12);
+    border-radius: var(--radius-24, var(--radius-20));
+  }
+
+  .recipe-list__grid .receipt-card--small .receipt-card__image {
+    height: clamp(190px, 58vw, 320px);
+  }
+
+  .recipe-list__grid .receipt-card__title {
+    height: auto;
+    min-height: 38px;
+  }
+}
+
 /* Desktop */
 .recipe-list__desktop-left-content {
   width: min(100%, 720px);
@@ -271,6 +295,6 @@
   }
 
   .recipe-list__grid .receipt-card--small .receipt-card__image {
-    height: 124px;
+    height: clamp(180px, 58vw, 240px);
   }
 }
