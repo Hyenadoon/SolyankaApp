@@ -4,6 +4,7 @@ import TitleBlock from '../../../components/atoms/TitleBlock/TitleBlock';
 import Button from '../../../components/atoms/Button/Button';
 import ReceiptCard from '../../../components/molecules/ReceiptCard/ReceiptCard';
 import Tag from '../../../components/atoms/Tag/Tag';
+import Picker from '../../../components/atoms/Picker/Picker';
 import DesktopSplitLayout from '../../layouts/DesktopSplitLayout';
 import { useMediaQuery, BREAKPOINTS } from '../../hooks/useMediaQuery';
 import IngredientUnit from '../../../components/atoms/IngredientUnit/IngredientUnit';
@@ -16,18 +17,31 @@ import { IconArrowBack, IconFeed, IconClock } from '../../../icons/index.jsx';
 import { getPantryItems } from '../../../api/pantry';
 import './RecipeListPage.css';
 
-const TABS = [
-  { value: 'gain', label: 'Набираю' },
-  { value: 'lose', label: 'Худею' },
-  { value: 'survive', label: 'Выжить' },
+const RECIPE_PLACEHOLDER = '/placeholder.png';
+const INGREDIENT_PLACEHOLDER = '/placeholder2.png';
+
+const TIME_TABS = [
+  { value: '15', label: 'до 15 мин' },
+  { value: '30', label: 'до 30 мин' },
+  { value: '60', label: 'до 60 мин' },
 ];
+
+const RESTRICTIONS = ['Без мяса', 'Без рыбы', 'Без орехов', 'Без молочки', 'Без сахара'];
+
+const RESTRICTION_TERMS = {
+  'Без мяса': ['мяс', 'куриц', 'говя', 'свин', 'бекон', 'ветчин', 'индейк', 'колбас', 'фарш', 'chicken', 'beef', 'pork', 'meat', 'bacon', 'ham', 'turkey', 'sausage'],
+  'Без рыбы': ['рыб', 'лосос', 'тунец', 'треск', 'семг', 'сёмг', 'кревет', 'морепр', 'fish', 'salmon', 'tuna', 'shrimp', 'seafood'],
+  'Без орехов': ['орех', 'арахис', 'миндал', 'фундук', 'кешью', 'фисташ', 'nut', 'peanut', 'almond', 'hazelnut', 'cashew', 'pistachio'],
+  'Без молочки': ['молок', 'сыр', 'слив', 'сметан', 'йогурт', 'творог', 'масло слив', 'кефир', 'milk', 'cheese', 'cream', 'yogurt', 'butter', 'curd'],
+  'Без сахара': ['сахар', 'мед', 'мёд', 'сироп', 'шоколад', 'варенье', 'джем', 'sugar', 'honey', 'syrup', 'chocolate', 'jam'],
+};
 
 function toCard(recipe) {
   return {
     ...recipe,
     id: recipe.recipe_id,
     title: recipe.name,
-    image: recipe.image_url || '/placeholder.png',
+    image: recipe.image_url || recipe.image || RECIPE_PLACEHOLDER,
     tags: [
       { text: formatMinutes(recipe.cooking_time_minutes) },
       { text: recipe.ready_to_cook ? 'Всё есть' : getRecipePriceLabel(recipe) },
@@ -35,12 +49,43 @@ function toCard(recipe) {
   };
 }
 
+function getRecipeIngredients(recipe) {
+  const catalogRecipe = getCatalogRecipeById(recipe.recipe_id);
+  const sources = [
+    recipe.ingredients,
+    catalogRecipe?.ingredients,
+    recipe.matched_ingredients,
+    recipe.missing_ingredients,
+  ];
+
+  return sources
+    .flatMap((items) => (Array.isArray(items) ? items : []))
+    .filter(Boolean);
+}
+
+function recipeHasRestrictedIngredient(recipe, selectedRestrictions) {
+  if (!selectedRestrictions.length) return false;
+
+  const ingredientText = getRecipeIngredients(recipe)
+    .map((item) => item.name || item.ingredient_name || '')
+    .join(' ')
+    .toLowerCase();
+
+  if (!ingredientText) return false;
+
+  return selectedRestrictions.some((restriction) => {
+    const terms = RESTRICTION_TERMS[restriction] || [];
+    return terms.some((term) => ingredientText.includes(term));
+  });
+}
+
 function RecipeListPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const isDesktop = useMediaQuery(BREAKPOINTS.desktop);
 
-  const [activeTab, setActiveTab] = useState('gain');
+  const [activeTime, setActiveTime] = useState('60');
+  const [selectedRestrictions, setSelectedRestrictions] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -85,6 +130,33 @@ function RecipeListPage() {
     };
   }, [fromScan]);
 
+  const toggleRestriction = (restriction) => {
+    setSelectedRestrictions((prev) =>
+      prev.includes(restriction)
+        ? prev.filter((item) => item !== restriction)
+        : [...prev, restriction]
+    );
+  };
+
+  const filteredRecipes = useMemo(() => {
+    return recipes.filter((recipe) => {
+      const matchesTime = (recipe.cooking_time_minutes || 0) <= Number(activeTime);
+      const matchesRestrictions = !recipeHasRestrictedIngredient(recipe, selectedRestrictions);
+      return matchesTime && matchesRestrictions;
+    });
+  }, [recipes, activeTime, selectedRestrictions]);
+
+  useEffect(() => {
+    if (!filteredRecipes.length) {
+      setSelectedRecipe(null);
+      return;
+    }
+
+    if (!selectedRecipe || !filteredRecipes.some((recipe) => recipe.id === selectedRecipe.id)) {
+      setSelectedRecipe(filteredRecipes[0]);
+    }
+  }, [filteredRecipes, selectedRecipe]);
+
   const startCooking = async (recipe) => {
     if (!recipe?.recipe_id) return;
 
@@ -100,13 +172,36 @@ function RecipeListPage() {
   };
 
   const randomRecipe = useMemo(
-    () => recipes[Math.floor(Math.random() * recipes.length)] || null,
-    [recipes]
+    () => filteredRecipes[Math.floor(Math.random() * filteredRecipes.length)] || null,
+    [filteredRecipes]
+  );
+
+  const filters = (
+    <div className="recipe-list__filters">
+      <div className="recipe-list__filter-section">
+        <p className="recipe-list__filter-label">Время приготовления</p>
+        <TabSelector items={TIME_TABS} activeValue={activeTime} onChange={setActiveTime} />
+      </div>
+      <div className="recipe-list__filter-section">
+        <p className="recipe-list__filter-label">Ваши ограничения в еде</p>
+        <div className="recipe-list__filter-pickers">
+          {RESTRICTIONS.map((restriction) => (
+            <Picker
+              key={restriction}
+              selected={selectedRestrictions.includes(restriction)}
+              onClick={() => toggleRestriction(restriction)}
+            >
+              {restriction}
+            </Picker>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 
   const grid = (
     <div className="recipe-list__grid">
-      {recipes.map((recipe) => (
+      {filteredRecipes.map((recipe) => (
         <ReceiptCard
           key={recipe.id}
           size="small"
@@ -119,15 +214,18 @@ function RecipeListPage() {
     </div>
   );
 
+  const subtitle = loading
+    ? 'Ищу рецепты...'
+    : fromScan
+      ? `Сначала рецепты из найденных продуктов · ${filteredRecipes.length}`
+      : `Нашел ${filteredRecipes.length} рецептов`;
+
   if (!isDesktop) {
     return (
       <div className="recipe-list">
-        <div className="recipe-list__fixed-header">
-          <TitleBlock
-            title="Ужин достойный короля"
-            subtitle={loading ? 'Ищу рецепты...' : fromScan ? `Сначала рецепты из найденных продуктов · ${recipes.length}` : `Нашел ${recipes.length} рецептов`}
-          />
-          <TabSelector items={TABS} activeValue={activeTab} onChange={setActiveTab} />
+        <div className="recipe-list__header">
+          <TitleBlock title="Ужин достойный короля" subtitle={subtitle} />
+          {filters}
         </div>
 
         {error ? <p>{error}</p> : null}
@@ -186,10 +284,8 @@ function RecipeListPage() {
 
   const leftPanel = (
     <div className="recipe-list__desktop-left-content">
-      <TitleBlock
-        title="Ужин достойный короля"
-        subtitle={loading ? 'Ищу рецепты...' : fromScan ? `Сначала рецепты из найденных продуктов · ${recipes.length}` : `Нашел ${recipes.length} рецептов`}
-      />
+      <TitleBlock title="Ужин достойный короля" subtitle={subtitle} />
+      {filters}
       {error ? <p>{error}</p> : null}
       {grid}
     </div>
@@ -220,7 +316,7 @@ function RecipeListPage() {
             selectedRecipeHave.map((item) => (
               <IngredientUnit
                 key={`have-${item.ingredient_id}`}
-                image="/placeholder.png"
+                image={item.image_url || item.ingredient_image_url || INGREDIENT_PLACEHOLDER}
                 name={item.name}
                 weight={formatAmount(item.amount, item.unit)}
                 state="have"
@@ -239,7 +335,7 @@ function RecipeListPage() {
             selectedRecipeMissing.map((item) => (
               <IngredientUnit
                 key={`miss-${item.ingredient_id}`}
-                image="/placeholder.png"
+                image={item.image_url || item.ingredient_image_url || INGREDIENT_PLACEHOLDER}
                 name={item.name}
                 weight={formatAmount(item.amount, item.unit)}
                 state="haveNo"

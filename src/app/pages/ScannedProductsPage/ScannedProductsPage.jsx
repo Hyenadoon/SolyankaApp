@@ -13,7 +13,7 @@ import { formatAmount } from '../../../lib/format';
 import { IconArrowBack, IconPlus } from '../../../icons/index.jsx';
 import './ScannedProductsPage.css';
 
-const PLACEHOLDER = '/placeholder.png';
+const PLACEHOLDER = '/placeholder2.png';
 
 function getProductKey(product, index) {
   return String(product.local_id || product.ingredient_id || product.id || `recognized-${index + 1}`);

@@ -14,7 +14,7 @@ import { formatAmount } from '../../../lib/format';
 import { IconArrowBack, IconPlus } from '../../../icons/index.jsx';
 import './ManualProductsPage.css';
 
-const PLACEHOLDER = '/placeholder.png';
+const PLACEHOLDER = '/placeholder2.png';
 
 function ManualProductsPage() {
   const navigate = useNavigate();

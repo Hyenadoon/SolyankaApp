@@ -1,31 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Tag from '../../../components/atoms/Tag/Tag';
 import Button from '../../../components/atoms/Button/Button';
 import Mascot from '../../../components/quarks/Mascot/Mascot';
-import TabSelector from '../../../components/atoms/TabSelector/TabSelector';
-import Picker from '../../../components/atoms/Picker/Picker';
+import ReceiptCard from '../../../components/molecules/ReceiptCard/ReceiptCard';
 import DesktopSplitLayout from '../../layouts/DesktopSplitLayout';
 import { useMediaQuery, BREAKPOINTS } from '../../hooks/useMediaQuery';
 import { getMe } from '../../../api/auth';
+import { getAllRecipesCatalog } from '../../../api/recipes';
 import { clearToken } from '../../../lib/auth';
+import { formatMinutes } from '../../../lib/format';
 import { IconHeart, IconCamera } from '../../../icons/index.jsx';
 import './HomePage.css';
 
-const TIME_TABS = [
-  { value: '15', label: 'до 15 мин' },
-  { value: '30', label: 'до 30 мин' },
-  { value: '60', label: 'до 60 мин' },
-];
+function toRecipeCard(recipe) {
+  return {
+    ...recipe,
+    id: recipe.recipe_id,
+    title: recipe.name,
+    image: recipe.image_url || recipe.image || '/placeholder.png',
+    tags: [
+      { text: formatMinutes(recipe.cooking_time_minutes) },
+      { text: `${recipe.ingredients?.length || 0} ингр.` },
+    ],
+  };
+}
 
-const RESTRICTIONS = ['Без мяса', 'Без рыбы', 'Без орехов', 'Без молочки', 'Без сахара'];
+function pickRandomRecipes(count = 8) {
+  return getAllRecipesCatalog()
+    .map(toRecipeCard)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, count);
+}
 
 function HomePage() {
   const navigate = useNavigate();
   const isDesktop = useMediaQuery(BREAKPOINTS.desktop);
-  const [activeTime, setActiveTime] = useState('15');
-  const [selectedRestrictions, setSelectedRestrictions] = useState([]);
   const [email, setEmail] = useState('');
+  const randomRecipes = useMemo(() => pickRandomRecipes(isDesktop ? 7 : 8), [isDesktop]);
+  const carouselRecipes = useMemo(() => [...randomRecipes, ...randomRecipes], [randomRecipes]);
 
   useEffect(() => {
     let cancelled = false;
@@ -42,36 +55,50 @@ function HomePage() {
     };
   }, [navigate]);
 
-  const toggleRestriction = (r) => {
-    setSelectedRestrictions((prev) =>
-      prev.includes(r) ? prev.filter((x) => x !== r) : [...prev, r]
-    );
-  };
+  const tagText = email ? `Сэкономили в казне` : 'Сэкономили в казне';
 
-  const tagText = email ? `На кухне: ${email}` : 'Сэкономили в казне';
+  const recipeCarousel = randomRecipes.length ? (
+    <div className="home-page__recipe-carousel" aria-label="Случайные рецепты">
+      <div className="home-page__recipe-track">
+        {carouselRecipes.map((recipe, index) => (
+          <ReceiptCard
+            key={`${recipe.id}-${index}`}
+            size="small"
+            className="home-page__recipe-card"
+            image={recipe.image}
+            title={recipe.title}
+            tags={recipe.tags.slice(0, 1)}
+            cookLabel="Смотреть"
+            onCook={() => navigate('/recipes')}
+          />
+        ))}
+      </div>
+    </div>
+  ) : null;
 
   const mobileContent = (
     <div className="home-page">
       <div className="home-page__hero">
         <Tag variant="neutral" icon={<IconHeart size={16} />}>
-          {tagText}
+          Cэкономили в казне
         </Tag>
         <h1 className="home-page__savings">3024р</h1>
+        {recipeCarousel}
       </div>
 
       <div className="home-page__actions">
         <Mascot className="home-page__actions-mascot" width={115} height={54} />
         <Button
           size="large"
-          variant="primary"
-          iconLeft={<IconCamera size={24} color="#fff" />}
+          variant="secondary"
+          iconLeft={<IconCamera size={24} color="#292d30" />}
           onClick={() => navigate('/scan')}
         >
-          Распознать продукты
+          Сфотографировать
         </Button>
         <Button
           size="large"
-          variant="secondary"
+          variant="primary"
           onClick={() => navigate('/products/manual')}
         >
           Ввести вручную
@@ -91,6 +118,7 @@ function HomePage() {
         {tagText}
       </Tag>
       <h1 className="home-page__savings home-page__savings--desktop">3024р</h1>
+      {recipeCarousel}
     </div>
   );
 
@@ -99,36 +127,19 @@ function HomePage() {
       <div className="home-page__desktop-actions">
         <Button
           size="large"
-          variant="primary"
-          iconLeft={<IconCamera size={24} color="#fff" />}
+          variant="secondary"
+          iconLeft={<IconCamera size={24} color="#292d30" />}
           onClick={() => navigate('/scan')}
         >
-          Загрузить фото продуктов
+          Сфотографировать
         </Button>
         <Button
           size="large"
-          variant="secondary"
+          variant="primary"
           onClick={() => navigate('/products/manual')}
         >
           Ввести вручную
         </Button>
-      </div>
-
-      <div className="home-page__desktop-preferences">
-        <div className="home-page__pref-section">
-          <p className="home-page__pref-label">Время приготовления</p>
-          <TabSelector items={TIME_TABS} activeValue={activeTime} onChange={setActiveTime} />
-        </div>
-        <div className="home-page__pref-section">
-          <p className="home-page__pref-label">Ваши ограничения в еде</p>
-          <div className="home-page__pref-pickers">
-            {RESTRICTIONS.map((r) => (
-              <Picker key={r} selected={selectedRestrictions.includes(r)} onClick={() => toggleRestriction(r)}>
-                {r}
-              </Picker>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );

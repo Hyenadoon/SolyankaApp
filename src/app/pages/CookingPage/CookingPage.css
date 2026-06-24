@@ -1,36 +1,31 @@
 .cooking-page {
   display: flex;
   flex-direction: column;
-  min-height: calc(100dvh - 80px);
+  gap: var(--spacing-16);
+  min-height: calc(100dvh - 112px);
   background: linear-gradient(to top, #ffcb08 11%, #ff781c 89%);
   margin: 0 calc(-1 * var(--spacing-16));
   padding: var(--spacing-16);
+  padding-bottom: calc(var(--spacing-24) + var(--vk-safe-area-bottom));
   border-radius: var(--radius-20);
 }
 
 .cooking-page__chat-chip {
   align-self: center;
-  margin-bottom: var(--spacing-16);
+  flex-shrink: 0;
 }
 
 .cooking-page__steps {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-12);
-  overflow-y: auto;
-  padding-bottom: 100px;
+  width: 100%;
 }
 
 .cooking-page__step {
   background: #fef9f4;
   border-radius: var(--radius-20);
   padding: var(--spacing-8);
-  opacity: 0.3;
-  transition: opacity 0.3s;
-}
-
-.cooking-page__step--active {
   opacity: 1;
 }
 
@@ -38,6 +33,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--spacing-8);
   padding: var(--spacing-8);
 }
 
@@ -51,8 +47,8 @@
 .cooking-page__step-instruction {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: clamp(18px, 5vw, 22px);
+  line-height: 1.18;
   color: var(--colors-text-800);
   padding: 0 var(--spacing-8) var(--spacing-8);
 }
@@ -88,47 +84,16 @@
   color: var(--colors-alpha-30);
 }
 
-.cooking-page__footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: var(--spacing-16);
-  background: linear-gradient(to bottom, transparent, white 30%);
-  z-index: 50;
-}
-
-.cooking-page__footer-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 360px;
-}
-
+.cooking-page__footer,
+.cooking-page__footer-inner,
 .cooking-page__nav-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
-  background: var(--colors-alpha-4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.cooking-page__nav-btn--next {
-  width: 60px;
-  height: 60px;
-  background: var(--colors-text-500);
+  display: none;
 }
 
 /* Desktop */
 .cooking-page__desktop-center {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -139,39 +104,38 @@
 
 .cooking-page__desktop-img {
   width: 100%;
-  max-width: 400px;
+  max-width: min(400px, 70%);
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: var(--radius-20);
 }
 
 .cooking-page__desktop-title {
+  max-width: 720px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 75px;
+  font-size: clamp(44px, 6vw, 75px);
   line-height: 0.85;
   color: var(--colors-text-800);
-  margin-bottom: 24px;
 }
 
 .cooking-page__desktop-tags {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--spacing-4);
 }
 
 .cooking-page__desktop-right {
-  display: flex;
-  flex-direction: column;
   height: 100%;
+  overflow-y: auto;
+  padding-right: 2px;
 }
 
 .cooking-page__desktop-right .cooking-page__steps {
   padding-bottom: var(--spacing-16);
 }
 
-.cooking-page__desktop-right .cooking-page__footer {
-  position: static;
-  background: none;
-  padding: 0;
-  margin-top: auto;
+.cooking-page__desktop-right .cooking-page__step-instruction {
+  font-size: 22px;
 }
