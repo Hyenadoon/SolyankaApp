@@ -13,19 +13,24 @@ function ScanPhotoPage() {
   const navigate = useNavigate();
   const isDesktop = useMediaQuery(BREAKPOINTS.desktop);
   const [photo, setPhoto] = useState(null);
+  const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleFileChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) setPhoto(URL.createObjectURL(file));
+    const selected = e.target.files?.[0];
+    if (!selected) return;
+    setFile(selected);
+    setPhoto(URL.createObjectURL(selected));
+    setError('');
   };
 
   const handleRecognize = async () => {
+    if (!file) return;
     setLoading(true);
     setError('');
     try {
-      const result = await recognizeFridge();
+      const result = await recognizeFridge(file);
       navigate('/products/scanned', { state: { suggestedIngredients: result.suggested_ingredients, preview: photo } });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Не удалось распознать продукты');
@@ -79,7 +84,7 @@ function ScanPhotoPage() {
     );
   }
 
-  const leftPanel = <div className="scan-page__desktop-center"><Mascot width={115} height={54} /><TitleBlock title="Загрузите фото продуктов" subtitle="Бек тут пока стаб, но эндпоинт живой и честно вернёт подсказки" /></div>;
+  const leftPanel = <div className="scan-page__desktop-center"><Mascot width={115} height={54} /><TitleBlock title="Загрузите фото продуктов" subtitle="Сфотографируйте холодильник — я распознаю, что внутри" /></div>;
   const rightPanel = <div className="scan-page__desktop-right">{preview}{controls}{error ? <p>{error}</p> : null}{actionButton}</div>;
 
   return <DesktopSplitLayout leftContent={leftPanel} rightContent={rightPanel} showVideo={false} />;

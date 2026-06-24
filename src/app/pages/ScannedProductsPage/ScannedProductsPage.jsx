@@ -18,20 +18,37 @@ function ScannedProductsPage() {
   const [error, setError] = useState('');
   const [products, setProducts] = useState(location.state?.suggestedIngredients || Array());
 
+  const formatWeight = (p) => {
+    if (!p.matched) return 'Нет в каталоге';
+    if (p.grams) return `~${p.grams} г`;
+    if (p.quantity) return `${p.quantity}${p.unit ? ` ${p.unit}` : ' шт'}`;
+    return 'Распознано';
+  };
+
   const normalizedProducts = useMemo(() => products.map((p, index) => ({
-    id: p.ingredient_id || p.id || index + 1,
-    ingredient_id: p.ingredient_id || p.id,
+    id: index,
+    ingredient_id: p.ingredient_id ?? null,
+    matched: Boolean(p.ingredient_id),
     name: p.name,
-    weight: p.confidence ? `${Math.round(p.confidence * 100)}% совпадение` : 'Распознано',
-    image: '/placeholder.png',
+    grams: p.grams,
+    weight: formatWeight(p),
+    image: p.image_url || '/placeholder.png',
   })), [products]);
+
+  const savableProducts = useMemo(
+    () => normalizedProducts.filter((p) => p.matched),
+    [normalizedProducts],
+  );
 
   const handleSave = async () => {
     setSaving(true);
     setError('');
     try {
       const results = await Promise.allSettled(
-        normalizedProducts.map((item) => createPantryItem({ ingredient_id: item.ingredient_id }))
+        savableProducts.map((item) => createPantryItem({
+          ingredient_id: item.ingredient_id,
+          ...(item.grams ? { amount: item.grams, unit: 'г' } : {}),
+        }))
       );
 
       const fatal = results.find((result) => result.status === 'rejected' && !(result.reason instanceof Error && result.reason.message.includes('уже в холодильнике')));
@@ -45,7 +62,7 @@ function ScannedProductsPage() {
     }
   };
 
-  const removeItem = (id) => setProducts((prev) => prev.filter((p) => (p.ingredient_id || p.id) !== id));
+  const removeItem = (id) => setProducts((prev) => prev.filter((_, index) => index !== id));
 
   const productList = (
     <>
@@ -72,7 +89,7 @@ function ScannedProductsPage() {
           <button className="scanned-products__footer-back" onClick={() => navigate(-1)} type="button">
             <IconArrowBack size={24} />
           </button>
-          <Button size="large" variant="primary" onClick={handleSave} state={!normalizedProducts.length || saving ? 'disabled' : 'enabled'}>
+          <Button size="large" variant="primary" onClick={handleSave} state={!savableProducts.length || saving ? 'disabled' : 'enabled'}>
             {saving ? 'Сохраняю...' : 'Смотреть рецепты'}
           </Button>
         </div>

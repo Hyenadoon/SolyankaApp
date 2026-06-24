@@ -11,6 +11,9 @@ gem "rack-cors", "~> 2.0"
 gem "jbuilder", "~> 2.11"
 gem "bootsnap", require: false
 
+# Official OpenAI Ruby SDK — used by FoodVisionService for the Vision API
+gem "openai", "~> 0.6"
+
 group :development do
   gem "debug", platforms: %i[mri]
 end

@@ -34,6 +34,9 @@ Rails.application.routes.draw do
       end
 
       post "fridge_recognition", to: "fridge_recognition#create"
+
+      # OpenAI Vision: recognise food products on an uploaded photo
+      post "vision/analyze", to: "vision#analyze"
     end
   end
 
