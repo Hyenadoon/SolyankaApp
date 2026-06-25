@@ -1,0 +1,23 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(6.5px);
+  -webkit-backdrop-filter: blur(6.5px);
+}
+.label {
+  font: var(--text-small);
+  white-space: nowrap;
+}
+
+.default {
+  background: var(--color-alpha-4);
+  color: var(--color-dark);
+}
+.success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}

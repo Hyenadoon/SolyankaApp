@@ -1,0 +1,19 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  padding: var(--space-8) var(--space-12);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-alpha-4);
+  backdrop-filter: blur(6.5px);
+  -webkit-backdrop-filter: blur(6.5px);
+  color: var(--color-text-muted);
+  transition: background 0.15s ease;
+}
+.button:hover {
+  background: #00000014;
+}

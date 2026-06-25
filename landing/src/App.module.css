@@ -1,0 +1,49 @@
+.layout {
+  display: flex;
+  gap: var(--space-8);
+  align-items: stretch;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-8);
+}
+
+/* Футер — на всю ширину, контент в той же сетке 1440 */
+.footerWrap {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--space-8) var(--space-8);
+}
+
+/* Левая колонка — лендинг (скроллится) */
+.main {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* Правая колонка — закреплённый CTA */
+.aside {
+  flex: 0 0 400px;
+  width: 400px;
+  position: sticky;
+  top: var(--space-8);
+  align-self: flex-start;
+  height: calc(100vh - var(--space-8) * 2);
+}
+
+@media (max-width: 1024px) {
+  .aside { flex-basis: 320px; width: 320px; }
+}
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; }
+  .aside {
+    position: static;
+    width: auto;
+    height: auto;
+    min-height: 320px;
+    flex-basis: auto;
+  }
+}

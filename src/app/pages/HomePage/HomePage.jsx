@@ -57,6 +57,12 @@ function HomePage() {
 
   const tagText = email ? `Сэкономили в казне` : 'Сэкономили в казне';
 
+  const openCatalogRecipe = (recipe) => {
+    navigate(`/recipes/all?recipe=${recipe.id}`, {
+      state: { selectedRecipeId: recipe.id },
+    });
+  };
+
   const recipeCarousel = randomRecipes.length ? (
     <div className="home-page__recipe-carousel" aria-label="Случайные рецепты">
       <div className="home-page__recipe-track">
@@ -69,7 +75,8 @@ function HomePage() {
             title={recipe.title}
             tags={recipe.tags.slice(0, 1)}
             cookLabel="Смотреть"
-            onCook={() => navigate('/recipes')}
+            onCardClick={() => openCatalogRecipe(recipe)}
+            onCook={() => openCatalogRecipe(recipe)}
           />
         ))}
       </div>

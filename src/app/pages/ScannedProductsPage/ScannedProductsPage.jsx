@@ -19,27 +19,41 @@ function getProductKey(product, index) {
   return String(product.local_id || product.ingredient_id || product.id || `recognized-${index + 1}`);
 }
 
+function isGramUnit(unit) {
+  const normalized = String(unit || '').trim().toLowerCase();
+  return ['', 'г', 'гр', 'грамм', 'грамма', 'граммов', 'g', 'gr', 'gram', 'grams'].includes(normalized);
+}
+
+function getGramAmount(product) {
+  const rawAmount = product.grams ?? (isGramUnit(product.unit) ? (product.amount ?? product.quantity) : null);
+  const amount = Number(String(rawAmount ?? '').replace(',', '.'));
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    return null;
+  }
+
+  return Math.round(amount);
+}
+
 function formatRecognizedWeight(product) {
-  if (product.amount) return formatAmount(product.amount, product.unit || 'г');
-  if (product.grams) return `≈ ${Math.round(product.grams)} г`;
-  if (product.quantity && product.unit) return formatAmount(product.quantity, product.unit);
-  if (product.confidence) return `${Math.round(product.confidence * 100)}% совпадение`;
-  return product.matched === false ? 'Не найдено в базе' : 'Распознано';
+  if (product.matched === false || !product.ingredient_id) {
+    return 'Не найдено в базе';
+  }
+
+  const amount = getGramAmount(product);
+  return amount ? formatAmount(amount, 'г') : 'Укажите граммы';
 }
 
 function normalizeRecognizedProduct(product, index) {
-  const amount = product.amount || product.grams || product.quantity || null;
-  const unit = product.amount
-    ? (product.unit || 'г')
-    : product.grams
-      ? 'г'
-      : (product.unit || null);
+  const amount = getGramAmount(product);
 
   return {
     ...product,
     local_id: getProductKey(product, index),
     amount,
-    unit,
+    grams: amount,
+    quantity: null,
+    unit: amount ? 'г' : null,
   };
 }
 
@@ -57,19 +71,23 @@ function ScannedProductsPage() {
     : location.state?.suggestedIngredients || [];
   const [products, setProducts] = useState(() => initialProducts.map(normalizeRecognizedProduct));
 
-  const normalizedProducts = useMemo(() => products.map((p, index) => ({
-    id: getProductKey(p, index),
-    ingredient_id: p.ingredient_id || null,
-    name: p.ingredient_name || p.name,
-    weight: formatRecognizedWeight(p),
-    amount: p.amount || p.grams || p.quantity || null,
-    unit: p.unit || (p.grams ? 'г' : null),
-    image: p.ingredient_image_url || p.image_url || PLACEHOLDER,
-    matched: p.matched !== false && Boolean(p.ingredient_id),
-  })), [products]);
+  const normalizedProducts = useMemo(() => products.map((p, index) => {
+    const amount = getGramAmount(p);
+
+    return {
+      id: getProductKey(p, index),
+      ingredient_id: p.ingredient_id || null,
+      name: p.ingredient_name || p.name,
+      weight: formatRecognizedWeight({ ...p, amount, grams: amount, unit: amount ? 'г' : null }),
+      amount,
+      unit: amount ? 'г' : null,
+      image: p.ingredient_image_url || p.image_url || PLACEHOLDER,
+      matched: p.matched !== false && Boolean(p.ingredient_id),
+    };
+  }), [products]);
 
   const saveableProducts = useMemo(
-    () => normalizedProducts.filter((item) => item.ingredient_id),
+    () => normalizedProducts.filter((item) => item.ingredient_id && item.amount),
     [normalizedProducts]
   );
 

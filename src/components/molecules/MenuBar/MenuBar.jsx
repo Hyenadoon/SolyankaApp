@@ -24,7 +24,7 @@ const MenuBar = ({
       >
         <Mascot width={52} height={24} />
         <button className="menu-bar__burger-button" onClick={onToggle}>
-          <IconBurgerMenu size={24} />
+          <IconBurgerMenu size={24} color="#292d30" />
         </button>
       </div>
     );

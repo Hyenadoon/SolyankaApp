@@ -1,0 +1,91 @@
+.king {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-40);
+  width: 100%;
+  padding: var(--space-64) clamp(var(--space-16), 6vw, 81px);
+  border-radius: var(--radius-32);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+  max-width: 769px;
+  text-align: center;
+}
+.title {
+  font: var(--text-h1);
+  letter-spacing: var(--tracking-h1);
+  color: var(--color-ink);
+}
+.subtitle {
+  max-width: 393px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.2;
+  color: var(--color-text-muted);
+}
+
+/* Сцена с композицией */
+.stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.cluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Блюда вокруг карточки — наложение + лёгкий поворот */
+.dish {
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.14));
+}
+.d1 { width: 97px;  transform: rotate(-7.4deg);  margin-right: -46px; z-index: 1; }
+.d2 { width: 190px; transform: rotate(11.3deg);  margin-right: -46px; z-index: 2; }
+.d3 { width: 174px; transform: rotate(-6deg);    margin-left: -46px;  z-index: 2; }
+.d4 { width: 116px; transform: rotate(2.8deg);   margin-left: -34px;  z-index: 1; }
+
+/* Слот центральной карточки в кластере */
+.cardSlot {
+  position: relative;
+  z-index: 3;
+  flex-shrink: 0;
+  transform: rotate(-2deg);
+}
+
+/* Позиционирование плавающих чипов (наклон задаётся самим компонентом) */
+.chipRight {
+  position: absolute;
+  right: clamp(0px, 2vw, 24px);
+  top: 58%;
+  z-index: 5;
+}
+.chipLeft {
+  position: absolute;
+  left: clamp(0px, 2vw, 24px);
+  top: 30%;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .king { gap: var(--space-24); padding: var(--space-40) var(--space-24); }
+  .title { font-size: 34px; line-height: 1.05; }
+}
+
+@media (max-width: 560px) {
+  .king { padding: var(--space-24) var(--space-16); }
+  .title { font-size: 28px; }
+  .d1, .d4 { display: none; }
+  .chipLeft, .chipRight { display: none; }
+}

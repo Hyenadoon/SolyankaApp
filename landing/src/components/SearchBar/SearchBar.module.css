@@ -1,0 +1,34 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  width: 100%;
+  height: 54px;
+  padding: var(--space-8);
+  padding-left: var(--space-16);
+  border-radius: var(--radius-full);
+  background: var(--color-alpha-4);
+}
+.icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--color-text-300);
+}
+.input {
+  flex: 1 0 0;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font: var(--text-paragraph-semibold);
+  color: var(--color-ink);
+}
+.input::placeholder {
+  color: var(--color-text-placeholder);
+  opacity: 1;
+}
+/* Убираем нативную крестик-кнопку у type=search */
+.input::-webkit-search-decoration,
+.input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}

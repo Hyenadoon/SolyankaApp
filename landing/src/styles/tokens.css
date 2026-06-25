@@ -1,0 +1,65 @@
+/* Дизайн-токены SOLYANKA. Значения выгружены из Figma (get_variable_defs).
+   Все компоненты ссылаются только сюда — никаких магических чисел в .module.css.
+   Покрытие: секция Hero. Расширяется по мере переноса следующих секций. */
+:root {
+  /* Цвета */
+  --color-primary-500: #ff7300;          /* colors/primary/500 — основной оранжевый */
+  --color-primary-400: #ff9861;          /* colors/primary/400 — светлый оранжевый, декор */
+  --color-bg: #fbf8f6;                    /* фон страницы (тёплый off-white) */
+  --color-surface: #ffffff;              /* colors/background/100 — белые плашки/меню */
+  --color-white: #ffffff;                /* colors/text/50 */
+  --color-tag: #f5a201;                  /* текст бейджа-кружка в step-карточках */
+  --color-border: #0000001a;             /* colors/alpha/10 — обводка меню-бара */
+  --color-ink: #1c1f21;                  /* colors/text/700 — основной тёмный текст */
+  --color-dark: #292d30;                 /* colors/text/500 — тёмная кнопка / текст тегов */
+  --color-text-muted: #44474a;           /* colors/text/400 — приглушённый текст */
+  --color-ink-900: #141618;              /* colors/text/800 — самый тёмный текст */
+  --color-text-300: #919395;             /* colors/text/300 — иконка поиска */
+  --color-text-placeholder: #b4b6b7;     /* colors/text/200 — плейсхолдер инпута */
+  --color-alpha-4: #0000000a;            /* colors/alpha/4 — фон полей/тегов/карточек */
+  --color-success-bg: #e0f3d8;           /* colors/success/100 — фон зелёного тега */
+  --color-success: #3d8000;              /* colors/success/700 — текст зелёного тега */
+
+  /* «Стеклянные» поверхности (step-карточки в Hero) */
+  --color-glass: rgba(255, 255, 255, 0.2);
+
+  /* Типографика.
+     Swis721 Win95BT и SF Pro не встроены — стек с фолбэками (см. parity-report). */
+  --font-heading: 'Swis721 Win95BT', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'SF Pro Display', 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --text-h1: 700 49px / 42px var(--font-heading);            /* H1/Bold, letter-spacing задаётся отдельно */
+  --text-h2: 700 34px / 29px var(--font-heading);            /* заголовок CTA-сайдбара */
+  --text-button: 400 16px / 20px var(--font-heading);        /* Swis721 Roman — текст кнопки */
+  --text-paragraph-bold: 700 16px / 20px var(--font-sans);   /* Paragraph/Bold */
+  --text-paragraph-medium: 500 16px / 1.2 var(--font-sans);  /* Paragraph/Medium — тайтлы карточек, табы */
+  --text-paragraph-semibold: 600 16px / 1.25 var(--font-sans); /* Paragraph/Semi Bold — инпут */
+  --text-small: 500 13px / 20px var(--font-sans);            /* Small/Medium — теги */
+  --text-caption: 500 11px / 1.2 var(--font-sans);           /* мелкая подпись */
+  --text-body: 400 16px / 1.5 var(--font-sans);
+
+  --tracking-h1: -0.98px;                /* -2% от 49px */
+  --tracking-h2: -0.68px;                /* -2% от 34px */
+
+  /* Отступы (px-шкала Figma: spacing/*) */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-40: 40px;
+  --space-64: 64px;
+
+  /* Радиусы */
+  --radius-24: 24px;                     /* spacing/24 — step-карточки */
+  --radius-32: 32px;                     /* spacing/32 — Hero-карта и меню-бар */
+  --radius-full: 9999px;                 /* radius/full */
+
+  /* Раскладка */
+  --maxw-hero: 1016px;                   /* ширина Hero-карты в макете */
+
+  /* Брейкпоинты */
+  --bp-tablet: 768px;
+  --bp-desktop: 1024px;
+}

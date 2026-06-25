@@ -1,0 +1,26 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--color-alpha-4);
+}
+.tab {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 48px;
+  padding: var(--space-12) var(--space-16);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-dark);
+  font: var(--text-paragraph-medium);
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.active {
+  background: var(--color-primary-500);
+  color: var(--color-white);
+}

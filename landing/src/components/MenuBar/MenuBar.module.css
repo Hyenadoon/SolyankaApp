@@ -1,0 +1,30 @@
+.bar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;                /* ширина плашки из макета */
+  padding: var(--space-16) var(--space-24);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-32);
+}
+.wrapper {
+  flex: 1 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.burger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.burger img {
+  width: 24px;
+  height: auto;
+}

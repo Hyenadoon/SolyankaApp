@@ -12,6 +12,15 @@
   height: fit-content;
 }
 
+.receipt-card--clickable {
+  cursor: pointer;
+}
+
+.receipt-card--clickable:focus-visible {
+  outline: 2px solid var(--colors-primary-500);
+  outline-offset: 3px;
+}
+
 /* Big variant */
 .receipt-card--big {
   min-width: 271px;

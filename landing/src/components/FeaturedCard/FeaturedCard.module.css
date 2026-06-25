@@ -1,0 +1,34 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 200px;
+  padding: 10px;
+  border-radius: 27px;
+  background: var(--color-alpha-4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+}
+.tags {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  padding: var(--space-4) var(--space-4) 0;
+}
+.image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.title {
+  font: var(--text-paragraph-medium);
+  color: var(--color-ink);
+}
+.cook { width: 100%; }

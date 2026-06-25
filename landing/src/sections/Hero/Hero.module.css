@@ -1,0 +1,112 @@
+/* Оранжевая карта Hero (Frame 881233634) */
+.card {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-40);
+  padding: 140px var(--space-20) 100px;
+  border-radius: var(--radius-32);
+  background: var(--color-primary-500);
+  overflow: hidden;
+}
+
+/* Текстура-оверлей поверх оранжевого (opacity 53%) */
+.texture {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.53;
+  pointer-events: none;
+}
+
+/* Декор */
+.camera {
+  position: absolute;
+  left: 85px;
+  top: 27px;
+  width: 97.95px;
+  height: 97.95px;
+  transform: rotate(17.7deg);
+  pointer-events: none;
+}
+.checkmark {
+  position: absolute;
+  right: 48px;
+  top: 155px;
+  width: 97.95px;
+  height: 97.95px;
+  pointer-events: none;
+}
+
+/* Меню-бар по центру сверху */
+.menu {
+  position: absolute;
+  top: var(--space-20);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-40);
+}
+
+/* Заголовочный блок */
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+  width: 769px;
+  max-width: 100%;
+  text-align: center;
+  color: var(--color-white);
+}
+.title {
+  font: var(--text-h1);
+  letter-spacing: var(--tracking-h1);
+}
+.subtitle {
+  width: 270px;
+  max-width: 100%;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* Карусель step-карточек */
+.steps {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-8);
+  width: 800px;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 96px var(--space-16) 64px;
+    gap: var(--space-24);
+  }
+  .title {
+    font-size: 36px;
+    line-height: 1.05;
+  }
+  .steps {
+    flex-direction: column;
+  }
+  .camera { left: 24px; top: 80px; }
+  .checkmark { right: 24px; top: auto; bottom: 24px; }
+}
