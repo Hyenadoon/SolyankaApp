@@ -17,6 +17,7 @@
     "vite": "^8.1.0"
   },
   "engines": {
-    "node": ">=20"
-  }
+    "node": ">=22.12.0"
+  },
+  "packageManager": "npm@10.9.0"
 }

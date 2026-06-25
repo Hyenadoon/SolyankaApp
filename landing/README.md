@@ -21,8 +21,9 @@ npm run preview
 Если лендинг лежит в монорепозитории в папке `landing`, в Render укажи:
 
 - Root Directory: `landing`
-- Build Command: `npm ci && npm run build`
+- Build Command: `npm ci --no-audit --no-fund && npm run build`
 - Publish Directory: `dist`
+- Environment Variable: `NODE_VERSION=22.12.0`
 
 ## Ссылки
 
