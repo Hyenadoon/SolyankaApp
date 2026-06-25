@@ -172,3 +172,48 @@
   opacity: 0.8;
   margin: 0;
 }
+
+.all-recipes__filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  width: 100%;
+  padding: var(--spacing-12);
+  border-radius: var(--radius-20);
+  background: var(--colors-alpha-4);
+  overflow: hidden;
+}
+
+.all-recipes__filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  width: 100%;
+  min-width: 0;
+}
+
+.all-recipes__filter-label {
+  font-family: var(--font-text);
+  font-size: 14px;
+  font-weight: 510;
+  color: var(--colors-text-400);
+}
+
+.all-recipes__filters .tab-selector {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.64);
+}
+
+.all-recipes__filters .tab-selector__tab {
+  min-width: 0;
+  height: 40px;
+  padding: var(--spacing-8) var(--spacing-12);
+  font-size: 14px;
+}
+
+@media (min-width: 900px) {
+  .all-recipes__filters {
+    gap: var(--spacing-16);
+    padding: var(--spacing-16);
+  }
+}

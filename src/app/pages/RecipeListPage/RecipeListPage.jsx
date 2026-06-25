@@ -13,6 +13,7 @@ import { getRecommendations, getCatalogRecipeById } from '../../../api/recipes';
 import { createCookingSession } from '../../../api/cooking';
 import { cacheRecipe } from '../../../lib/auth';
 import { formatAmount, formatMinutes, getRecipePriceLabel } from '../../../lib/format';
+import { RECIPE_GOAL_DEFAULT, RECIPE_GOAL_TABS, filterRecipesByGoal } from '../../../lib/recipeGoal';
 import { IconArrowBack, IconFeed, IconClock } from '../../../icons/index.jsx';
 import { getPantryItems } from '../../../api/pantry';
 import './RecipeListPage.css';
@@ -85,6 +86,7 @@ function RecipeListPage() {
   const isDesktop = useMediaQuery(BREAKPOINTS.desktop);
 
   const [activeTime, setActiveTime] = useState('60');
+  const [activeGoal, setActiveGoal] = useState(RECIPE_GOAL_DEFAULT);
   const [selectedRestrictions, setSelectedRestrictions] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -139,12 +141,14 @@ function RecipeListPage() {
   };
 
   const filteredRecipes = useMemo(() => {
-    return recipes.filter((recipe) => {
+    const baseRecipes = recipes.filter((recipe) => {
       const matchesTime = (recipe.cooking_time_minutes || 0) <= Number(activeTime);
       const matchesRestrictions = !recipeHasRestrictedIngredient(recipe, selectedRestrictions);
       return matchesTime && matchesRestrictions;
     });
-  }, [recipes, activeTime, selectedRestrictions]);
+
+    return filterRecipesByGoal(baseRecipes, activeGoal, { minResults: fromScan ? 2 : 3 });
+  }, [recipes, activeTime, activeGoal, selectedRestrictions, fromScan]);
 
   useEffect(() => {
     if (!filteredRecipes.length) {
@@ -181,6 +185,10 @@ function RecipeListPage() {
       <div className="recipe-list__filter-section">
         <p className="recipe-list__filter-label">Время приготовления</p>
         <TabSelector items={TIME_TABS} activeValue={activeTime} onChange={setActiveTime} />
+      </div>
+      <div className="recipe-list__filter-section">
+        <p className="recipe-list__filter-label">Цель питания</p>
+        <TabSelector items={RECIPE_GOAL_TABS} activeValue={activeGoal} onChange={setActiveGoal} />
       </div>
       <div className="recipe-list__filter-section">
         <p className="recipe-list__filter-label">Ваши ограничения в еде</p>

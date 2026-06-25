@@ -13,6 +13,7 @@ import { createCookingSession } from '../../../api/cooking';
 import { getPantryItems } from '../../../api/pantry';
 import { cacheRecipe } from '../../../lib/auth';
 import { formatAmount, formatMinutes } from '../../../lib/format';
+import { RECIPE_GOAL_DEFAULT, RECIPE_GOAL_TABS, filterRecipesByGoal } from '../../../lib/recipeGoal';
 import { IconFilter, IconHeart, IconClock } from '../../../icons/index.jsx';
 import './AllRecipesPage.css';
 
@@ -53,6 +54,7 @@ function AllRecipesPage() {
   const isDesktop = useMediaQuery(BREAKPOINTS.desktop);
   const [search, setSearch] = useState('');
   const [activeTime, setActiveTime] = useState('all');
+  const [activeGoal, setActiveGoal] = useState(RECIPE_GOAL_DEFAULT);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [pantryItems, setPantryItems] = useState([]);
   const [isStartingCooking, setIsStartingCooking] = useState(false);
@@ -77,12 +79,14 @@ function AllRecipesPage() {
   }, []);
 
   const filtered = useMemo(() => {
-    return recipes.filter((r) => {
+    const baseRecipes = recipes.filter((r) => {
       const matchesSearch = r.title.toLowerCase().includes(search.toLowerCase());
       const matchesTime = activeTime === 'all' || (r.cooking_time_minutes || 0) <= Number(activeTime);
       return matchesSearch && matchesTime;
     });
-  }, [recipes, search, activeTime]);
+
+    return filterRecipesByGoal(baseRecipes, activeGoal, { minResults: 6 });
+  }, [recipes, search, activeTime, activeGoal]);
 
   useEffect(() => {
     if (!recipes.length) return;
@@ -238,11 +242,24 @@ function AllRecipesPage() {
           </button>
         </div>
 
-        <TabSelector
-          items={TIME_TABS}
-          activeValue={activeTime}
-          onChange={setActiveTime}
-        />
+        <div className="all-recipes__filters">
+          <div className="all-recipes__filter-section">
+            <p className="all-recipes__filter-label">Время приготовления</p>
+            <TabSelector
+              items={TIME_TABS}
+              activeValue={activeTime}
+              onChange={setActiveTime}
+            />
+          </div>
+          <div className="all-recipes__filter-section">
+            <p className="all-recipes__filter-label">Цель питания</p>
+            <TabSelector
+              items={RECIPE_GOAL_TABS}
+              activeValue={activeGoal}
+              onChange={setActiveGoal}
+            />
+          </div>
+        </div>
 
         {mobileSelectedRecipe}
         {grid}
@@ -263,11 +280,24 @@ function AllRecipesPage() {
         </button>
       </div>
 
-      <TabSelector
-        items={TIME_TABS}
-        activeValue={activeTime}
-        onChange={setActiveTime}
-      />
+      <div className="all-recipes__filters">
+        <div className="all-recipes__filter-section">
+          <p className="all-recipes__filter-label">Время приготовления</p>
+          <TabSelector
+            items={TIME_TABS}
+            activeValue={activeTime}
+            onChange={setActiveTime}
+          />
+        </div>
+        <div className="all-recipes__filter-section">
+          <p className="all-recipes__filter-label">Цель питания</p>
+          <TabSelector
+            items={RECIPE_GOAL_TABS}
+            activeValue={activeGoal}
+            onChange={setActiveGoal}
+          />
+        </div>
+      </div>
 
       {grid}
     </div>
